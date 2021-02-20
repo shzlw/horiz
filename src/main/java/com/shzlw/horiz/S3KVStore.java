@@ -3,19 +3,19 @@ package com.shzlw.horiz;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
-class S3KVStore extends AbstractStore implements KVStore {
+public class S3KVStore extends AbstractStore implements KVStore {
 
     private final String bucketName;
     private final AmazonS3 s3Client;
     private final String objectPrefix;
     private final S3Service s3Service;
 
-    private S3KVStore(StepBuilder b) {
-        super(b.cacheConfig);
+    private S3KVStore(StepBuilder builder) {
+        super(builder.cacheConfig);
 
-        this.bucketName = b.bucketName;
-        this.s3Client = b.s3Client;
-        this.objectPrefix = b.objectPrefix;
+        this.bucketName = builder.bucketName;
+        this.s3Client = builder.s3Client;
+        this.objectPrefix = builder.objectPrefix;
         this.s3Service = new S3Service(s3Client, bucketName);
     }
 
@@ -92,7 +92,7 @@ class S3KVStore extends AbstractStore implements KVStore {
     @Override
     public void put(String key, String value) {
         s3Service.put(key, value);
-        if (useCache()) {
+        if (isCacheUsed()) {
             getLocalCache().put(key, value);
         }
     }
@@ -100,7 +100,7 @@ class S3KVStore extends AbstractStore implements KVStore {
     @Override
     public String get(String key) {
         String value;
-        if (useCache()) {
+        if (isCacheUsed()) {
             value = getLocalCache().get(key);
             if (value != null) {
                 return value;
@@ -119,7 +119,7 @@ class S3KVStore extends AbstractStore implements KVStore {
     @Override
     public void delete(String key) {
         s3Service.delete(key);
-        if (useCache()) {
+        if (isCacheUsed()) {
             getLocalCache().delete(key);
         }
     }

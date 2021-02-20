@@ -1,7 +1,9 @@
 language: java
 jdk:
   - openjdk8
-before_script:
+os:
+  - linux
+before_install:
   - chmod +x gradlew
 script:
   - ./gradlew check

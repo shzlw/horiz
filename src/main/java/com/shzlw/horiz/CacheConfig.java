@@ -8,10 +8,10 @@ public class CacheConfig {
     private final long duration;
     private final TimeUnit unit;
 
-    private CacheConfig(Builder b) {
-        this.maximumSize = b.maximumSize;
-        this.duration = b.duration;
-        this.unit = b.unit;
+    private CacheConfig(Builder builder) {
+        this.maximumSize = builder.maximumSize;
+        this.duration = builder.duration;
+        this.unit = builder.unit;
     }
 
     public long getMaximumSize() {

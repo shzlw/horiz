@@ -16,7 +16,7 @@ public abstract class AbstractStore {
         return cacheConfig;
     }
 
-    protected boolean useCache() {
+    protected boolean isCacheUsed() {
         return cacheConfig != null;
     }
 
