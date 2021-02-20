@@ -2,22 +2,28 @@ package com.shzlw.horiz;
 
 public abstract class AbstractStore {
 
-    private final CacheConfig cacheConfig;
+    private final LocalCacheConfig localCacheConfig;
     private LocalCache localCache;
 
-    public AbstractStore(CacheConfig cacheConfig) {
-        this.cacheConfig = cacheConfig;
-        if (cacheConfig != null) {
-            localCache = new LocalCache(cacheConfig);
+    public AbstractStore(LocalCacheConfig localCacheConfig) {
+        this.localCacheConfig = localCacheConfig;
+        if (localCacheConfig != null) {
+            localCache = new LocalCache(localCacheConfig);
         }
     }
 
-    public CacheConfig getCacheConfig() {
-        return cacheConfig;
+    public LocalCacheConfig getLocalCacheConfig() {
+        return localCacheConfig;
+    }
+
+    public void clearCache() {
+        if (isCacheUsed()) {
+            localCache.deleteAll();
+        }
     }
 
     protected boolean isCacheUsed() {
-        return cacheConfig != null;
+        return localCacheConfig != null;
     }
 
     protected LocalCache getLocalCache() {

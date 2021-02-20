@@ -11,7 +11,7 @@ public class S3KVStore extends AbstractStore implements KVStore {
     private final S3Service s3Service;
 
     private S3KVStore(StepBuilder builder) {
-        super(builder.cacheConfig);
+        super(builder.localCacheConfig);
 
         this.bucketName = builder.bucketName;
         this.s3Client = builder.s3Client;
@@ -44,7 +44,7 @@ public class S3KVStore extends AbstractStore implements KVStore {
 
         BuildStep objectPrefix(String objectPrefix);
 
-        BuildStep cache(CacheConfig cacheConfig);
+        BuildStep localCache(LocalCacheConfig localCacheConfig);
 
         S3KVStore build();
     }
@@ -54,7 +54,7 @@ public class S3KVStore extends AbstractStore implements KVStore {
         private AmazonS3 s3Client;
         private String bucketName;
         private String objectPrefix;
-        private CacheConfig cacheConfig;
+        private LocalCacheConfig localCacheConfig;
 
         @Override
         public S3KVStore.BuildStep bucket(String bucketName) {
@@ -75,8 +75,8 @@ public class S3KVStore extends AbstractStore implements KVStore {
         }
 
         @Override
-        public BuildStep cache(CacheConfig cacheConfig) {
-            this.cacheConfig = cacheConfig;
+        public BuildStep localCache(LocalCacheConfig localCacheConfig) {
+            this.localCacheConfig = localCacheConfig;
             return this;
         }
 

@@ -2,13 +2,13 @@ package com.shzlw.horiz;
 
 import java.util.concurrent.TimeUnit;
 
-public class CacheConfig {
+public class LocalCacheConfig {
 
     private final long maximumSize;
     private final long duration;
     private final TimeUnit unit;
 
-    private CacheConfig(Builder builder) {
+    private LocalCacheConfig(Builder builder) {
         this.maximumSize = builder.maximumSize;
         this.duration = builder.duration;
         this.unit = builder.unit;
@@ -47,10 +47,8 @@ public class CacheConfig {
             return this;
         }
 
-        public CacheConfig build() {
-            return new CacheConfig(this);
+        public LocalCacheConfig build() {
+            return new LocalCacheConfig(this);
         }
     }
-
-
 }

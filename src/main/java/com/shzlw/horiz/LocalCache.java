@@ -13,10 +13,10 @@ public class LocalCache {
 
     private final Cache<String, String> cache;
 
-    public LocalCache(CacheConfig cacheConfig) {
-        long maximumSize = Utils.getOrDefault(cacheConfig.getMaximumSize(), MAXIMUM_SIZE);
-        long duration = Utils.getOrDefault(cacheConfig.getDuration(), DURATION);
-        TimeUnit unit = Utils.getOrDefault(cacheConfig.getUnit(), UNIT);
+    public LocalCache(LocalCacheConfig localCacheConfig) {
+        long maximumSize = Utils.getOrDefault(localCacheConfig.getMaximumSize(), MAXIMUM_SIZE);
+        long duration = Utils.getOrDefault(localCacheConfig.getDuration(), DURATION);
+        TimeUnit unit = Utils.getOrDefault(localCacheConfig.getUnit(), UNIT);
 
         cache = Caffeine.newBuilder()
                 .maximumSize(maximumSize)
