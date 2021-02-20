@@ -26,7 +26,7 @@ public class LocalCacheConfig {
         return unit;
     }
 
-    public static Builder newBuilder() {
+    public static Builder builder() {
         return new Builder();
     }
 

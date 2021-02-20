@@ -1,9 +1,10 @@
-package com.shzlw.horiz;
+package com.shzlw.horiz.s3;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
+import com.shzlw.horiz.Utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,6 +1,10 @@
 package com.shzlw.horiz;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.shzlw.horiz.s3.S3Config;
+import com.shzlw.horiz.s3.S3KVStore;
+import com.shzlw.horiz.s3.S3KVStoreBuilder;
+import com.shzlw.horiz.s3.S3Service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +16,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(S3KVStore.class)
+@PrepareForTest(S3Config.class)
 public class S3KVStoreTest {
 
     @Test
@@ -27,12 +31,14 @@ public class S3KVStoreTest {
                 withArguments(s3Client, bucketName).thenReturn(s3Service);
         Mockito.when(s3Service.get(key)).thenReturn(value);
 
-        KVStore kvStore = S3KVStore.newBuilder()
-                .bucket(bucketName)
-                .s3Client(s3Client)
+        S3KVStore s3KVStore = S3KVStoreBuilder.builder()
+                .s3(S3Config.builder()
+                        .s3Client(s3Client)
+                        .bucketName(bucketName)
+                        .build())
                 .build();
 
-        Assert.assertEquals(value, kvStore.get(key));
+        Assert.assertEquals(value, s3KVStore.get(key));
         Mockito.verify(s3Service, Mockito.times(1)).get(key);
     }
 
@@ -48,17 +54,19 @@ public class S3KVStoreTest {
                 withArguments(s3Client, bucketName).thenReturn(s3Service);
         Mockito.when(s3Service.get(key)).thenReturn(value);
 
-        KVStore kvStore = S3KVStore.newBuilder()
-                .bucket(bucketName)
-                .s3Client(s3Client)
-                .localCache(LocalCacheConfig.newBuilder()
+        S3KVStore s3KVStore = S3KVStoreBuilder.builder()
+                .s3(S3Config.builder()
+                        .s3Client(s3Client)
+                        .bucketName(bucketName)
+                        .build())
+                .localCache(LocalCacheConfig.builder()
                         .expire(5, TimeUnit.MINUTES)
                         .maximumSize(100)
                         .build())
                 .build();
 
-        kvStore.put(key, value);
-        Assert.assertEquals(value, kvStore.get(key));
+        s3KVStore.put(key, value);
+        Assert.assertEquals(value, s3KVStore.get(key));
         Mockito.verify(s3Service, Mockito.times(0)).get(key);
     }
 }

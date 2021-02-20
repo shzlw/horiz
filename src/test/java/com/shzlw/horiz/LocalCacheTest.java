@@ -7,7 +7,7 @@ public class LocalCacheTest {
 
     @Test
     public void testDefaultCacheConfig() {
-        LocalCacheConfig localCacheConfig = LocalCacheConfig.newBuilder().build();
+        LocalCacheConfig localCacheConfig = LocalCacheConfig.builder().build();
         LocalCache localCache = new LocalCache(localCacheConfig);
 
         localCache.put("key1", "val1");
