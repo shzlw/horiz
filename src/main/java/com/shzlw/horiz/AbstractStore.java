@@ -5,7 +5,7 @@ public abstract class AbstractStore {
     private final LocalCacheConfig localCacheConfig;
     private LocalCache localCache;
 
-    public AbstractStore(LocalCacheConfig localCacheConfig) {
+    protected AbstractStore(LocalCacheConfig localCacheConfig) {
         this.localCacheConfig = localCacheConfig;
         if (localCacheConfig != null) {
             localCache = new LocalCache(localCacheConfig);

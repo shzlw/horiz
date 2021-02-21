@@ -2,7 +2,6 @@ package com.shzlw.horiz;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.shzlw.horiz.s3.S3Config;
-import com.shzlw.horiz.s3.S3KVStore;
 import com.shzlw.horiz.s3.S3KVStoreBuilder;
 import com.shzlw.horiz.s3.S3Service;
 import org.junit.Assert;
@@ -31,7 +30,7 @@ public class S3KVStoreTest {
                 withArguments(s3Client, bucketName).thenReturn(s3Service);
         Mockito.when(s3Service.get(key)).thenReturn(value);
 
-        S3KVStore s3KVStore = S3KVStoreBuilder.builder()
+        KVStore s3KVStore = S3KVStoreBuilder.builder()
                 .s3(S3Config.builder()
                         .s3Client(s3Client)
                         .bucketName(bucketName)
@@ -54,7 +53,7 @@ public class S3KVStoreTest {
                 withArguments(s3Client, bucketName).thenReturn(s3Service);
         Mockito.when(s3Service.get(key)).thenReturn(value);
 
-        S3KVStore s3KVStore = S3KVStoreBuilder.builder()
+        KVStore s3KVStore = S3KVStoreBuilder.builder()
                 .s3(S3Config.builder()
                         .s3Client(s3Client)
                         .bucketName(bucketName)

@@ -4,7 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 public final class Utils {
 
-    private Utils() {}
+    private Utils() {
+    }
 
     public static long getOrDefault(long val, long defaultVal) {
         return val == 0 ? defaultVal : val;

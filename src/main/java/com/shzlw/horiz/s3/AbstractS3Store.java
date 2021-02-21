@@ -7,7 +7,7 @@ public abstract class AbstractS3Store extends AbstractStore {
 
     private final S3Config s3Config;
 
-    public AbstractS3Store(LocalCacheConfig localCacheConfig, S3Config s3Config) {
+    protected AbstractS3Store(LocalCacheConfig localCacheConfig, S3Config s3Config) {
         super(localCacheConfig);
         this.s3Config = s3Config;
     }

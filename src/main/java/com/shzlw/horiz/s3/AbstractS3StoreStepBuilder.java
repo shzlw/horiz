@@ -2,13 +2,12 @@ package com.shzlw.horiz.s3;
 
 import com.shzlw.horiz.LocalCacheConfig;
 
-public abstract class AbstractS3StoreStepBuilder<StoreType>
-        implements S3StoreConfigStep, S3StoreBuildStep {
+public abstract class AbstractS3StoreStepBuilder implements S3StoreConfigStep, S3StoreBuildStep {
 
     private S3Config s3Config;
     private LocalCacheConfig localCacheConfig;
 
-    public AbstractS3StoreStepBuilder() {
+    protected AbstractS3StoreStepBuilder() {
     }
 
     public S3Config getS3Config() {
@@ -18,9 +17,6 @@ public abstract class AbstractS3StoreStepBuilder<StoreType>
     public LocalCacheConfig getLocalCacheConfig() {
         return localCacheConfig;
     }
-
-    @Override
-    public abstract StoreType build();
 
     @Override
     public S3StoreBuildStep s3(S3Config s3Config) {

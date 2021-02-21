@@ -2,11 +2,9 @@ package com.shzlw.horiz;
 
 import java.util.List;
 
-public interface Table<T, ID> {
+public interface Table<T> {
 
     List<T> get();
-
-    T getById(ID id);
 
     void add(T entity);
 

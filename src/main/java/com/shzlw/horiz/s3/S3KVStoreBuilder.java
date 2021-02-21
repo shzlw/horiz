@@ -1,6 +1,6 @@
 package com.shzlw.horiz.s3;
 
-public class S3KVStoreBuilder extends AbstractS3StoreStepBuilder<S3KVStore> {
+public class S3KVStoreBuilder extends AbstractS3StoreStepBuilder {
 
     public static S3StoreConfigStep<S3KVStore> builder() {
         return new S3KVStoreBuilder();

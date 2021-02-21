@@ -1,10 +1,10 @@
 package com.shzlw.horiz;
 
-public interface TableStore {
+public interface TableStore<T extends AbstractTable> {
 
-    void add(String name);
+    void add(T table);
 
     void delete(String name);
 
-    Table table(String name);
+    T table(String name);
 }
