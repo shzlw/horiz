@@ -34,7 +34,7 @@ public class S3TableStoreTest {
                 .build();
 
         String tableName = "table1";
-        tableStore.add(new S3Table<>(tableName, Product.class));
+        tableStore.add(new S3Table<Product, Integer>(tableName, "id", Product.class));
 
         tableStore.table(tableName).add(new Product(1, "p1"));
     }

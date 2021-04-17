@@ -1,7 +1,9 @@
-# horiz
+# Horiz
 
 [![Build Status](https://travis-ci.com/shzlw/horiz.svg?branch=main)](https://travis-ci.com/shzlw/horiz)
 [![codecov](https://codecov.io/gh/shzlw/horiz/branch/main/graph/badge.svg)](https://codecov.io/gh/shzlw/horiz)
+
+Horiz is a Java library that uses S3 as datastore and provides simplified Key-Value APIs.
 
 ## Build
 ```sh
@@ -14,7 +16,9 @@ implementation 'com.github.ben-manes.caffeine:caffeine:2.9.0'
 implementation 'com.amazonaws:aws-java-sdk-s3:1.11.957'
 ```
 
-## Example
+## API examples
+
+### KV store
 ```java
 // Create a new S3KVStore
 S3KVStore s3KVStore = S3KVStoreBuilder.builder()

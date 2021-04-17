@@ -1,8 +1,10 @@
 plugins {
     id 'java-library'
     id 'jacoco'
+    id 'maven-publish'
 }
 
+group = 'com.shzlw'
 version = '0.0.1'
 
 repositories {
@@ -32,3 +34,37 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'horiz'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'Horiz'
+                description = 'A Java library that uses S3 as datastore and provides simplified Key-Value APIs'
+                url = 'https://github.com/shzlw/horiz'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://raw.githubusercontent.com/shzlw/horiz/main/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'shzlw'
+                        name = 'Zhonglu Wang'
+                    }
+                }
+            }
+        }
+    }
+}

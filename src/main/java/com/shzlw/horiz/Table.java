@@ -2,19 +2,21 @@ package com.shzlw.horiz;
 
 import java.util.List;
 
-public interface Table<T> {
+public interface Table<T, ID> {
 
     List<T> get();
 
-    void add(T entity);
+    T getById(ID id);
 
-    void batchAdd(List<T> list);
+    int add(T entity);
 
-    void update(T entity);
+    int batchAdd(List<T> list);
 
-    void batchUpdate(List<T> list);
+    int update(T entity);
 
-    void delete(T entity);
+    int batchUpdate(List<T> list);
 
-    void batchDelete(List<T> list);
+    int delete(T entity);
+
+    int batchDelete(List<T> list);
 }

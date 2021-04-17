@@ -6,14 +6,15 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.shzlw.horiz.AbstractTable;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-public class S3Table<T> extends AbstractTable<T> {
+public class S3Table<T, ID> extends AbstractTable<T, ID> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public S3Table(String name, Class<T> clazz) {
-        super(name, clazz);
+    public S3Table(String name, String idFieldName, Class<T> clazz) {
+        super(name, idFieldName, clazz);
     }
 
     @Override
@@ -32,45 +33,80 @@ public class S3Table<T> extends AbstractTable<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public T getById(ID id) {
+        List<T> list = get();
+        for (int i = 0; i < list.size(); i++) {
+            if (id.equals(getIdVal(list.get(i)))) {
+                return list.get(i);
+            }
+        }
+
         return null;
     }
 
     @Override
-    public void add(T entity) {
+    public int add(T entity) {
+        ID newId = getIdVal(entity);
 
         List<T> list = get();
-        // Check duplicated?
+        boolean isFound = false;
+        for (int i = 0; i < list.size(); i++) {
+            if (newId.equals(getIdVal(list.get(i)))) {
+                isFound = true;
+                break;
+            }
+        }
+
+        if (isFound) {
+            return 0;
+        }
+
         list.add(entity);
 
+        return overwriteList(list) ? 1 : 0;
+    }
+
+    @Override
+    public int batchAdd(List<T> list) {
+        return 0;
+    }
+
+    @Override
+    public int update(T entity) {
+        return 0;
+    }
+
+    @Override
+    public int batchUpdate(List<T> list) {
+        return 0;
+    }
+
+    @Override
+    public int delete(T entity) {
+        return 0;
+    }
+
+    @Override
+    public int batchDelete(List<T> list) {
+        return 0;
+    }
+
+    private T isExist() {
+        return null;
+    }
+
+    private boolean overwriteList(List<T> list) {
         try {
             String content = objectMapper.writeValueAsString(list);
             getTableStore().getS3Config().getS3Service().put(getName(), content);
+            return true;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void batchAdd(List<T> list) {
-    }
-
-    @Override
-    public void update(T entity) {
-
-    }
-
-    @Override
-    public void batchUpdate(List<T> list) {
-
-    }
-
-    @Override
-    public void delete(T entity) {
-
-    }
-
-    @Override
-    public void batchDelete(List<T> list) {
-
+        return false;
     }
 }
